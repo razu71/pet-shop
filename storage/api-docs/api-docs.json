@@ -1,0 +1,15 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/api/login": {
+            "get": {
+                "operationId": "2ae5e4fc954ce9548d7be7494c98aad0",
+                "responses": {
+                    "200": {
+                        "description": "Login page"
+                    }
+                }
+            }
+        }
+    }
+}
