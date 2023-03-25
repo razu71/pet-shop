@@ -1,4 +1,5 @@
 #Installation process
+
 - Open terminal and go to your project directory.
 - Run `run.sh` file by typing `/bin/bash run.sh`
   - N.B. If you are not in project directory then type full project path. Ex. `/bin/bash /opt/homebrew/var/www/pet-shop/run.sh`. Here `/opt/homebrew/var/www/pet-shop` is my project path.
