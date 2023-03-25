@@ -1,0 +1,17 @@
+{
+    "not_found": ":key not found.",
+    "success": "Operation successful.",
+    "wrong": "Something went wrong.",
+    "created": ":key created successfully.",
+    "updated": ":key updated successfully.",
+    "deleted": ":key deleted successfully.",
+    "found": ":key retrieved successfully.",
+    "in_active": ":key is not active",
+    "activated": ":key activated successfully",
+    "verified": ":key verified successfully",
+    "not_verified": ":key is not verified successfully",
+    "not_matched": ":key not matched",
+    "matched": ":key is matched",
+    "invalid": ":key invalid",
+    "not_authorized": "You are not authorized to visit this route"
+}
