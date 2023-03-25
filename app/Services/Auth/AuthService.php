@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Auth;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\JwtToken;
@@ -187,5 +187,25 @@ class AuthService implements AuthInterface {
             return errorReturn(__('Unauthenticated'));
         }
         return successReturn(__('found', ['key' => 'Token']), $jwt);
+    }
+
+    public function logged_out() {
+        try {
+            $user = self::authUser();
+            $jwt = JwtToken::where('user_id', $user['data']->id)->first();
+            if (!$jwt) {
+                return errorResponse(__('not_found', ['key' => 'Jwt token']));
+            }
+            $jwt->update([
+                'expires_at' => now()
+            ]);
+//            request()->session()->invalidate();
+//            file_put_contents(storage_path() . '/jwt-private-key.pem', '');
+//            file_put_contents(storage_path() . '/jwt-public-key.pem','');
+            return successResponse(__('Logged out successfully'));
+        } catch (\Exception $exception) {
+            info(json_encode($exception->getMessage()));
+            return errorResponse();
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Services\AuthService;
+use App\Services\Auth\AuthService;
 use Closure;
 use Illuminate\Http\Request;
 use Lcobucci\JWT\Encoding\JoseEncoder;
@@ -25,10 +25,11 @@ class JwtMiddleware {
      * @return Response
      */
     public function handle(Request $request, Closure $next): Response {
-        $_token = $request->bearerToken();
+        $_token = $request->header('Authorization');
         if ($_token == '') {
             return errorResponse(__('Unauthenticated'));
         }
+        $_token = str_replace('Bearer ','', $_token);
         $parser = new Parser(new JoseEncoder());
         $token = $parser->parse($_token);
         $validator = new Validator();
@@ -50,6 +51,9 @@ class JwtMiddleware {
             }
             $jwt = $jwt['data'];
 
+            if ($jwt->expires_at <= now()){
+                return errorResponse(__('Unauthenticated'));
+            }
             //check token header
             $token_header = $token->headers()->get('title');
             if ($token_header != $jwt->token_title){
@@ -68,7 +72,6 @@ class JwtMiddleware {
                 return $next($request);
             }
 
-            info('ok');
             return errorResponse(__('Unauthenticated'));
         } catch (\Exception $e) {
             info(json_encode($e->violations()));
