@@ -4,6 +4,7 @@ namespace App\Services\Admin\User;
 
 use App\Http\Requests\Admin\StoreUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
+use App\Http\Requests\User\UpdateUserProfileRequest;
 use Illuminate\Http\Request;
 
 interface AdminUserInterface {
@@ -38,4 +39,11 @@ interface AdminUserInterface {
      * @return mixed
      */
     public function deleteUser($uuid);
+
+    /**
+     * @param UpdateUserProfileRequest $request
+     * update user profile
+     * @return mixed
+     */
+    public function updateUserProfile(UpdateUserProfileRequest $request);
 }

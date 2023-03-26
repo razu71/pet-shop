@@ -4,7 +4,9 @@ namespace App\Services\Admin\User;
 
 use App\Http\Requests\Admin\StoreUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
+use App\Http\Requests\User\UpdateUserProfileRequest;
 use App\Models\User;
+use App\Services\Auth\AuthService;
 use Illuminate\Http\Request;
 
 class AdminUserService implements AdminUserInterface {
@@ -111,6 +113,32 @@ class AdminUserService implements AdminUserInterface {
             $user->delete();
             return successResponse(__('deleted', ['key' => 'user']));
         } catch (\Exception $exception) {
+            info(json_encode($exception->getMessage()));
+            return errorResponse();
+        }
+    }
+
+    /**
+     * @param UpdateUserProfileRequest $request
+     * update user profile
+     * @return mixed
+     */
+    public function updateUserProfile($request) {
+        try {
+            $user = AuthService::authUser();
+            if ($user['success'] == FALSE){
+                return errorResponse($user['message']);
+            }
+            $data = [
+                'first_name'   => $request->first_name,
+                'last_name'    => $request->first_name,
+                'address'      => $request->address,
+                'is_marketing' => $request->is_marketing,
+                'avatar'       => $request->avatar,
+            ];
+            $user['data']->update($data);
+            return successResponse(__('updated',['key'=>'Profile']), $user['data']->refresh());
+        }catch (\Exception $exception){
             info(json_encode($exception->getMessage()));
             return errorResponse();
         }

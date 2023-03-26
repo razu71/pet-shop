@@ -3,6 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\User\UpdateUserProfileRequest;
 use App\Models\User;
 
 interface AuthInterface {

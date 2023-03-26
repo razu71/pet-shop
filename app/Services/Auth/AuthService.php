@@ -3,6 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\User\UpdateUserProfileRequest;
 use App\Models\JwtToken;
 use App\Models\User;
 use App\Services\Auth\AuthInterface;
@@ -31,6 +32,9 @@ class AuthService implements AuthInterface {
 
             $user = $valid['data'];
             $token = $this->issueJwtToken($user);
+            $user->update([
+                'last_login_at' => now()
+            ]);
             $data = [
                 'user'       => $user,
                 'token_type' => 'Bearer',
