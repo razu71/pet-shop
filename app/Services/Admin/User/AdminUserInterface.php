@@ -3,6 +3,7 @@
 namespace App\Services\Admin\User;
 
 use App\Http\Requests\Admin\StoreUserRequest;
+use App\Http\Requests\Admin\UpdateUserRequest;
 use Illuminate\Http\Request;
 
 interface AdminUserInterface {
@@ -28,7 +29,7 @@ interface AdminUserInterface {
      *
      * @return mixed
      */
-    public function updateUpdate(StoreUserRequest $request, $uuid);
+    public function updateUpdate(UpdateUserRequest $request, $uuid);
 
     /**
      * @param $uuid

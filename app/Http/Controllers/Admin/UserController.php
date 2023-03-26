@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUserRequest;
+use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Services\Admin\User\AdminUserInterface;
 use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
@@ -113,7 +114,7 @@ class UserController extends Controller
      *      ),
      * )
      */
-    public function updateUser(StoreUserRequest $request, $uuid) {
+    public function updateUser(UpdateUserRequest $request, $uuid) {
         return $this->admin->updateUpdate($request, $uuid);
     }
 
