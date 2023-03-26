@@ -7,9 +7,6 @@ use App\Services\Auth\AuthInterface;
 use App\Services\Auth\AuthService;
 use OpenApi\Annotations as OA;
 
-/**
- * @OA\Info(title="Authentication API", version="1.0")
- */
 class AuthController extends Controller {
     public function __construct(private AuthInterface $auth) {
     }
