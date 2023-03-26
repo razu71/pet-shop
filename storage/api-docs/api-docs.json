@@ -1,9 +1,23 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Authentication API",
-        "version": "1.0"
+        "title": "Pet Shop",
+        "description": "Pet shop API documentation",
+        "contact": {
+            "name": "Rabiul Islam",
+            "email": "rir.cse.71@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "/api/v1"
+        }
+    ],
     "paths": {
         "/api/v1/admin/create": {
             "post": {
@@ -365,6 +379,68 @@
                 }
             }
         },
+        "/api/v1/brands": {
+            "get": {
+                "description": "Brand list",
+                "operationId": "9aa76d538215df03f05c3609f7043447",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "No. of page",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "How many record you want to get",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Brand retrieved successfully"
+                    }
+                }
+            }
+        },
+        "/api/v1/categories": {
+            "get": {
+                "description": "Category list",
+                "operationId": "fed524cd0d685f2ebb32d11f662e037e",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "No. of page",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "How many record you want to get",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category retrieved successfully"
+                    }
+                }
+            }
+        },
         "/api/v1/user": {
             "get": {
                 "description": "Get auth user",
@@ -417,7 +493,7 @@
                                     "is_marketing": {
                                         "type": "boolean",
                                         "format": "string",
-                                        "example": "0/1"
+                                        "example": "0"
                                     },
                                     "address": {
                                         "type": "string",
