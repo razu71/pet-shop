@@ -13,4 +13,9 @@ Route::prefix('v1/')->group(function (){
      * user related routes
      */
     require base_path('routes/modules/user.php');
+
+    /**
+     * public routes
+     */
+    require base_path('routes/modules/guest.php');
 });
