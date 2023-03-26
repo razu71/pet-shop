@@ -1,12 +1,366 @@
 {
     "openapi": "3.0.0",
+    "info": {
+        "title": "Authentication API",
+        "version": "1.0"
+    },
     "paths": {
-        "/api/login": {
-            "get": {
-                "operationId": "2ae5e4fc954ce9548d7be7494c98aad0",
+        "/api/v1/admin/create": {
+            "post": {
+                "description": "Create a new user",
+                "operationId": "80e784c531999530d7556054daf696ea",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "phone_number",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Mr."
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Admin"
+                                    },
+                                    "email": {
+                                        "type": "email",
+                                        "format": "string",
+                                        "example": "user@email.com"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "+880175...."
+                                    },
+                                    "password": {
+                                        "type": "password",
+                                        "format": "string",
+                                        "example": "*****"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "password",
+                                        "format": "string",
+                                        "example": "*****"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "Login page"
+                        "description": "User created successfully"
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/user-listing": {
+            "get": {
+                "description": "User list",
+                "operationId": "69df6167925692fe8f3d019cbc02256d",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "No. of page",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "How many record you want to get",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "description": "First name of user",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User email",
+                        "required": false,
+                        "schema": {
+                            "type": "email"
+                        }
+                    },
+                    {
+                        "name": "phone_number",
+                        "in": "query",
+                        "description": "User phone",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "User address",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "created_at",
+                        "in": "query",
+                        "description": "Create time",
+                        "required": false,
+                        "schema": {
+                            "type": "datetime"
+                        }
+                    },
+                    {
+                        "name": "marketing",
+                        "in": "query",
+                        "description": "Is marketing or not",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User list"
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/api/v1/user-edit/{uuid}": {
+            "put": {
+                "description": "Update an user",
+                "operationId": "1f733a179dc5c2ec505eb87ec2847772",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID of User",
+                        "required": true,
+                        "schema": {
+                            "type": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "phone_number",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Mr."
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Admin"
+                                    },
+                                    "email": {
+                                        "type": "email",
+                                        "format": "string",
+                                        "example": "user@email.com"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "+880175...."
+                                    },
+                                    "password": {
+                                        "type": "password",
+                                        "format": "string",
+                                        "example": "*****"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "password",
+                                        "format": "string",
+                                        "example": "*****"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully"
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/api/v1/user-delete/{uuid}": {
+            "delete": {
+                "description": "Delete an user",
+                "operationId": "16cbeba4c66c2ba7efd366a47d16370f",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID of User",
+                        "required": true,
+                        "schema": {
+                            "type": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted successfully"
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/login": {
+            "post": {
+                "description": "Admin login",
+                "operationId": "02d05b4f5eb08fbc0e4ac37d812c8c2f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "email",
+                                        "format": "string",
+                                        "example": "admin@email.com"
+                                    },
+                                    "password": {
+                                        "type": "password",
+                                        "format": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Logged in successfully"
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/logout": {
+            "get": {
+                "description": "Logout as an admin",
+                "operationId": "8f3718c161276c16a9caaf077a4356be",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/v1/user/login": {
+            "post": {
+                "description": "User login",
+                "operationId": "a4619733164f1938b2e6f893cff40eb9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "email",
+                                        "format": "string",
+                                        "example": "user@email.com"
+                                    },
+                                    "password": {
+                                        "type": "password",
+                                        "format": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Logged in successfully"
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/api/v1/user/logout": {
+            "get": {
+                "description": "Logout as an user",
+                "operationId": "6e4225771a7b51357e3e8ebfddd5fc1f",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
                     }
                 }
             }

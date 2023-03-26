@@ -151,7 +151,7 @@ class AuthService implements AuthInterface {
         $parser = new Parser(new JoseEncoder());
         $token = $parser->parse($_token);
         if ($token->toString() == '') {
-            return errorReturn(__('Unauthenticated'));
+            return errorReturn(__('Unauthenticated'), [], 401);
         }
         return successReturn('', ['token' => $token]);
     }
@@ -166,11 +166,11 @@ class AuthService implements AuthInterface {
         $token = $_token['data']['token'];
         $user_uuid = $token->claims()->get('user_uuid');
         if ($user_uuid == '') {
-            return errorReturn(__('Unauthenticated'));
+            return errorReturn(__('Unauthenticated'), [], 401);
         }
         $user = User::where('uuid', $user_uuid)->first();
         if (!$user) {
-            return errorReturn(__('Unauthenticated'));
+            return errorReturn(__('Unauthenticated'), [], 401);
         }
         return successReturn(__('found', ['key' => 'User']), $user);
     }
@@ -184,11 +184,15 @@ class AuthService implements AuthInterface {
     public static function tokenVerify($user_id) {
         $jwt = JwtToken::where('user_id', $user_id)->first();
         if (!$jwt) {
-            return errorReturn(__('Unauthenticated'));
+            return errorReturn(__('Unauthenticated'), [], 401);
         }
         return successReturn(__('found', ['key' => 'Token']), $jwt);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse|mixed
+     * logged out user / admin
+     */
     public function logged_out() {
         try {
             $user = self::authUser();
@@ -199,9 +203,8 @@ class AuthService implements AuthInterface {
             $jwt->update([
                 'expires_at' => now()
             ]);
-//            request()->session()->invalidate();
-//            file_put_contents(storage_path() . '/jwt-private-key.pem', '');
-//            file_put_contents(storage_path() . '/jwt-public-key.pem','');
+            file_put_contents(storage_path() . '/jwt-private-key.pem', '');
+            file_put_contents(storage_path() . '/jwt-public-key.pem', '');
             return successResponse(__('Logged out successfully'));
         } catch (\Exception $exception) {
             info(json_encode($exception->getMessage()));

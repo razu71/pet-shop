@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\Admin\User\AdminUserInterface;
+use App\Services\Admin\User\AdminUserService;
+use App\Services\Auth\AuthInterface;
+use App\Services\Auth\AuthService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(AuthInterface::class, AuthService::class);
+        $this->app->bind(AdminUserInterface::class, AdminUserService::class);
     }
 
     /**

@@ -66,4 +66,10 @@ interface AuthInterface {
      * @return mixed
      */
     public static function tokenVerify($user_id);
+
+    /**
+     * @return mixed
+     * logged out user / admin
+     */
+    public function logged_out();
 }

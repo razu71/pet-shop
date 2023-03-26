@@ -18,7 +18,7 @@ class Admin
     {
         $user = AuthService::authUser();
         if ($user['success'] == FALSE){
-            return errorResponse(__('Unauthenticated'));
+            return errorResponse(__('Unauthenticated'),[], 401);
         }
         if (!$user['data']->is_admin){
             return errorResponse(__('not_authorized'));

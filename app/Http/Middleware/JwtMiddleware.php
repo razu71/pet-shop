@@ -27,7 +27,7 @@ class JwtMiddleware {
     public function handle(Request $request, Closure $next): Response {
         $_token = $request->header('Authorization');
         if ($_token == '') {
-            return errorResponse(__('Unauthenticated'));
+            return errorResponse(__('Unauthenticated'),[], 401);
         }
         $_token = str_replace('Bearer ','', $_token);
         $parser = new Parser(new JoseEncoder());
@@ -36,28 +36,28 @@ class JwtMiddleware {
 
         try {
             if ($token->isExpired(now())){
-                return errorResponse(__('Unauthenticated'));
+                return errorResponse(__('Unauthenticated'),[], 401);
             }
             $user = AuthService::authUser();
             if ($user['success'] == FALSE) {
-                return errorResponse(__('Unauthenticated'));
+                return errorResponse(__('Unauthenticated'),[], 401);
             }
 
             //verify token with db
             $user = $user['data'];
             $jwt = AuthService::tokenVerify($user->id);
             if ($jwt['success'] == FALSE) {
-                return errorResponse(__('Unauthenticated'));
+                return errorResponse(__('Unauthenticated'),[], 401);
             }
             $jwt = $jwt['data'];
 
             if ($jwt->expires_at <= now()){
-                return errorResponse(__('Unauthenticated'));
+                return errorResponse(__('Unauthenticated'),[], 401);
             }
             //check token header
             $token_header = $token->headers()->get('title');
             if ($token_header != $jwt->token_title){
-                return errorResponse(__('Unauthenticated'));
+                return errorResponse(__('Unauthenticated'),[], 401);
             }
 
             //validate token
@@ -72,10 +72,10 @@ class JwtMiddleware {
                 return $next($request);
             }
 
-            return errorResponse(__('Unauthenticated'));
+            return errorResponse(__('Unauthenticated'),[], 401);
         } catch (\Exception $e) {
             info(json_encode($e->violations()));
-            return errorResponse(__('Unauthenticated'));
+            return errorResponse(__('Unauthenticated'),[], 401);
         }
     }
 }
