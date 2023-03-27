@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\FileUploadController;
 
 Route::prefix('admin/')->group(function () {
     Route::post('login', [AuthController::class, 'adminLogin']);
@@ -15,4 +16,9 @@ Route::prefix('admin/')->group(function () {
 
         Route::get('logout', [AuthController::class, 'adminLogout']);
     });
+});
+
+Route::middleware(['jwt.auth','admin'])->group(function (){
+    //file upload
+    Route::post('file/upload',[FileUploadController::class, 'uploadFile']);
 });

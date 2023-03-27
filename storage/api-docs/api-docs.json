@@ -379,6 +379,65 @@
                 }
             }
         },
+        "/api/v1/file/upload": {
+            "post": {
+                "description": "Upload a file",
+                "operationId": "2a7dcbad5752294eaaa0916e0933e123",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "type": "file",
+                                        "format": "file",
+                                        "example": "example.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "File uploaded successfully"
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/api/v1/file/{uuid}": {
+            "get": {
+                "description": "Get a file",
+                "operationId": "ea87de32bc42917ff0f3b064b5d5698e",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID of file",
+                        "required": true,
+                        "schema": {
+                            "type": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "File retrieved successfully"
+                    },
+                    "400": {
+                        "description": "File not found"
+                    }
+                }
+            }
+        },
         "/api/v1/brands": {
             "get": {
                 "description": "Brand list",
