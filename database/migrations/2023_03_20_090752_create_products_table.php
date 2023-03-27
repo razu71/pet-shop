@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('category_uuid');
             $table->foreign('category_uuid')->on('categories')->references('uuid');
             $table->string('title');
-            $table->string('slug')->unique();
+            $table->double('price',8,2);
             $table->longText('description');
             $table->json('metadata');
             $table->softDeletes()->nullable();

@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AuthInterface::class, AuthService::class);
         $this->app->bind(AdminUserInterface::class, AdminUserService::class);
         $this->app->bind(FileInterface::class, FileService::class);
+        $this->app->bind(ProductInterface::class, ProductService::class);
     }
 
     /**

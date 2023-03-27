@@ -48,7 +48,7 @@ class AdminUserService implements AdminUserInterface {
      */
     public function userListing(Request $request) {
         $limit = $request->limit ?: 5;
-        $user = User::query();
+        $user = User::where('is_admin','==',0);
         if ($request->has('first_name') && $request->first_name != '') {
             $user = $user->where('first_name', 'like', '%' . $request->first_name . '%');
         }

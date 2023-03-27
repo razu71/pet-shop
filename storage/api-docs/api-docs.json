@@ -19,10 +19,193 @@
         }
     ],
     "paths": {
-        "/api/v1/admin/create": {
+        "/product/create": {
+            "post": {
+                "description": "Create a new product",
+                "operationId": "7d084d79a3a2164eb9ed2d675612dfc2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "category_uuid",
+                                    "price",
+                                    "metadata",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "New product"
+                                    },
+                                    "category_uuid": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1234-5678"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "100"
+                                    },
+                                    "metadata[file_uuid]": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1234-5678"
+                                    },
+                                    "metadata[brand_uuid]": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1234-5678"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Lorem ipsum.."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Product created successfully"
+                    },
+                    "400": {
+                        "description": "Something went wrong"
+                    }
+                }
+            }
+        },
+        "/product/{uuid}": {
+            "get": {
+                "description": "Get single product",
+                "operationId": "6eb40cc9091f67781fe34704490c5c0b",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID of product",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product retrieved successfully"
+                    },
+                    "400": {
+                        "description": "Product not found"
+                    }
+                }
+            },
+            "put": {
+                "description": "Update product",
+                "operationId": "9ee612579b1aeb5b1827cbeeb96bfd87",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID of product",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "category_uuid",
+                                    "price",
+                                    "metadata",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "New product"
+                                    },
+                                    "category_uuid": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1234-5678"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "100"
+                                    },
+                                    "metadata[file_uuid]": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1234-5678"
+                                    },
+                                    "metadata[brand_uuid]": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1234-5678"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Lorem ipsum.."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Product updated successfully"
+                    },
+                    "400": {
+                        "description": "Product not found"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete product",
+                "operationId": "15d7fa8465a9f928f00d7e145da748b2",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID of product",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product deleted successfully"
+                    },
+                    "400": {
+                        "description": "Product not found"
+                    }
+                }
+            }
+        },
+        "/admin/create": {
             "post": {
                 "description": "Create a new user",
-                "operationId": "80e784c531999530d7556054daf696ea",
+                "operationId": "db08d61611cf4693bab87d7b6a3bceb6",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -83,10 +266,10 @@
                 }
             }
         },
-        "/api/v1/admin/user-listing": {
+        "/admin/user-listing": {
             "get": {
                 "description": "User list",
-                "operationId": "69df6167925692fe8f3d019cbc02256d",
+                "operationId": "a26787adb1723341cb908a34cf6bfd4b",
                 "parameters": [
                     {
                         "name": "page",
@@ -171,10 +354,10 @@
                 }
             }
         },
-        "/api/v1/user-edit/{uuid}": {
+        "/admin/user-edit/{uuid}": {
             "put": {
                 "description": "Update an user",
-                "operationId": "1f733a179dc5c2ec505eb87ec2847772",
+                "operationId": "25d9e5ef7193a12fb97aaebff12a4792",
                 "parameters": [
                     {
                         "name": "uuid",
@@ -246,10 +429,10 @@
                 }
             }
         },
-        "/api/v1/user-delete/{uuid}": {
+        "/admin/user-delete/{uuid}": {
             "delete": {
                 "description": "Delete an user",
-                "operationId": "16cbeba4c66c2ba7efd366a47d16370f",
+                "operationId": "b946acec5a3aab4f22a7d72aff5ef6b5",
                 "parameters": [
                     {
                         "name": "uuid",
@@ -271,10 +454,10 @@
                 }
             }
         },
-        "/api/v1/admin/login": {
+        "/admin/login": {
             "post": {
                 "description": "Admin login",
-                "operationId": "02d05b4f5eb08fbc0e4ac37d812c8c2f",
+                "operationId": "7a11fc783cfc18f5be41f3539a1e8121",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -311,10 +494,10 @@
                 }
             }
         },
-        "/api/v1/admin/logout": {
+        "/admin/logout": {
             "get": {
                 "description": "Logout as an admin",
-                "operationId": "8f3718c161276c16a9caaf077a4356be",
+                "operationId": "54f1ea256aad39d9598e37b04423dab6",
                 "responses": {
                     "200": {
                         "description": "Successfully logged out"
@@ -325,10 +508,10 @@
                 }
             }
         },
-        "/api/v1/user/login": {
+        "/user/login": {
             "post": {
                 "description": "User login",
-                "operationId": "a4619733164f1938b2e6f893cff40eb9",
+                "operationId": "7be4b59b3e7b1ecc4e045533d8ee19bb",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -365,10 +548,10 @@
                 }
             }
         },
-        "/api/v1/user/logout": {
+        "/user/logout": {
             "get": {
                 "description": "Logout as an user",
-                "operationId": "6e4225771a7b51357e3e8ebfddd5fc1f",
+                "operationId": "e36b977d1aa3dc11d6f28b2d24f5f469",
                 "responses": {
                     "200": {
                         "description": "Successfully logged out"
@@ -379,10 +562,10 @@
                 }
             }
         },
-        "/api/v1/file/upload": {
+        "/file/upload": {
             "post": {
                 "description": "Upload a file",
-                "operationId": "2a7dcbad5752294eaaa0916e0933e123",
+                "operationId": "bfa27d6cac0be37bd45b2cf5008f7995",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -413,10 +596,10 @@
                 }
             }
         },
-        "/api/v1/file/{uuid}": {
+        "/file/{uuid}": {
             "get": {
                 "description": "Get a file",
-                "operationId": "ea87de32bc42917ff0f3b064b5d5698e",
+                "operationId": "90ddfccdb218641f877a64e4419a0efe",
                 "parameters": [
                     {
                         "name": "uuid",
@@ -438,10 +621,10 @@
                 }
             }
         },
-        "/api/v1/brands": {
+        "/brands": {
             "get": {
                 "description": "Brand list",
-                "operationId": "9aa76d538215df03f05c3609f7043447",
+                "operationId": "f4b6885ddc385fd26a4d4b6e6bc0fdc7",
                 "parameters": [
                     {
                         "name": "page",
@@ -469,10 +652,10 @@
                 }
             }
         },
-        "/api/v1/categories": {
+        "/categories": {
             "get": {
                 "description": "Category list",
-                "operationId": "fed524cd0d685f2ebb32d11f662e037e",
+                "operationId": "b650a4c480a2c9252b0e681e4b3169fc",
                 "parameters": [
                     {
                         "name": "page",
@@ -500,10 +683,21 @@
                 }
             }
         },
-        "/api/v1/user": {
+        "/products": {
+            "get": {
+                "description": "Get all product",
+                "operationId": "a6cad04004706788b8cc0389e7112701",
+                "responses": {
+                    "200": {
+                        "description": "Product retrieved successfully"
+                    }
+                }
+            }
+        },
+        "/user": {
             "get": {
                 "description": "Get auth user",
-                "operationId": "e60080abfe3a9e87064c5759a9dd06da",
+                "operationId": "206bee39a5edcfbaab983f6277f53438",
                 "responses": {
                     "200": {
                         "description": "User info retrieved successfully"
@@ -517,10 +711,10 @@
                 }
             }
         },
-        "/api/v1/user/edit": {
+        "/user/edit": {
             "put": {
                 "description": "Update user profile",
-                "operationId": "fcb74221892fb8ca9a611d800c1df663",
+                "operationId": "223c1619043d5cd966fadc7eca76f646",
                 "requestBody": {
                     "required": true,
                     "content": {

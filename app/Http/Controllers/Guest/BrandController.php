@@ -12,7 +12,7 @@ class BrandController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/v1/brands",
+     *     path="/brands",
      *     description="Brand list",
      *     @OA\Parameter(name="page", in="query", description="No. of page", required=true,
      *        @OA\Schema(type="integer")

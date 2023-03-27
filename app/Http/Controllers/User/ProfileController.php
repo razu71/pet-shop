@@ -16,7 +16,7 @@ class ProfileController extends Controller {
 
     /**
      * @OA\Get(
-     *     path="/api/v1/user",
+     *     path="/user",
      *     description="Get auth user",
      *     @OA\Response (
      *          response=200,
@@ -42,7 +42,7 @@ class ProfileController extends Controller {
 
     /**
      * @OA\Put(
-     *     path="/api/v1/user/edit",
+     *     path="/user/edit",
      *     description="Update user profile",
      *     @OA\RequestBody(
      *         required=true,

@@ -14,7 +14,7 @@ class FileUploadController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/v1/file/upload",
+     *     path="/file/upload",
      *     description="Upload a file",
      *     @OA\RequestBody(
      *         required=true,
@@ -39,7 +39,7 @@ class FileUploadController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/v1/file/{uuid}",
+     *     path="/file/{uuid}",
      *     description="Get a file",
      *     @OA\Parameter(name="uuid", in="path", description="UUID of file", required=true,
      *        @OA\Schema(type="uuid")

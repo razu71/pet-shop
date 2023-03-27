@@ -10,7 +10,7 @@ use OpenApi\Annotations as OA;
 class CategoryController extends Controller {
     /**
      * @OA\Get(
-     *     path="/api/v1/categories",
+     *     path="/categories",
      *     description="Category list",
      *     @OA\Parameter(name="page", in="query", description="No. of page", required=true,
      *        @OA\Schema(type="integer")

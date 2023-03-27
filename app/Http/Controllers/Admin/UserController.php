@@ -16,7 +16,7 @@ class UserController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/v1/admin/create",
+     *     path="/admin/create",
      *     description="Create a new user",
      *     @OA\RequestBody(
      *         required=true,
@@ -46,7 +46,7 @@ class UserController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/v1/admin/user-listing",
+     *     path="/admin/user-listing",
      *     description="User list",
      *     @OA\Parameter(name="page", in="query", description="No. of page", required=true,
      *        @OA\Schema(type="integer")
@@ -87,7 +87,7 @@ class UserController extends Controller
     }
     /**
      * @OA\Put(
-     *     path="/api/v1/user-edit/{uuid}",
+     *     path="/admin/user-edit/{uuid}",
      *     description="Update an user",
      *     @OA\Parameter(name="uuid", in="path", description="UUID of User", required=true,
      *        @OA\Schema(type="uuid")
@@ -120,7 +120,7 @@ class UserController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/api/v1/user-delete/{uuid}",
+     *     path="/admin/user-delete/{uuid}",
      *     description="Delete an user",
      *     @OA\Parameter(name="uuid", in="path", description="UUID of User", required=true,
      *        @OA\Schema(type="uuid")

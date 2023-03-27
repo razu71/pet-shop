@@ -13,7 +13,7 @@ class AuthController extends Controller {
 
     /**
      * @OA\Post(
-     *     path="/api/v1/admin/login",
+     *     path="/admin/login",
      *     description="Admin login",
      *     @OA\RequestBody(
      *         required=true,
@@ -39,7 +39,7 @@ class AuthController extends Controller {
 
     /**
      * @OA\Get(
-     *     path="/api/v1/admin/logout",
+     *     path="/admin/logout",
      *     description="Logout as an admin",
      *     @OA\Response (
      *          response=200,
@@ -57,7 +57,7 @@ class AuthController extends Controller {
 
     /**
      * @OA\Post(
-     *     path="/api/v1/user/login",
+     *     path="/user/login",
      *     description="User login",
      *     @OA\RequestBody(
      *         required=true,
@@ -83,7 +83,7 @@ class AuthController extends Controller {
 
     /**
      * @OA\Get(
-     *     path="/api/v1/user/logout",
+     *     path="/user/logout",
      *     description="Logout as an user",
      *     @OA\Response (
      *          response="200",

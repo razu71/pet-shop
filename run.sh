@@ -32,5 +32,7 @@ php artisan key:generate &
 echo "Migration started"
 php artisan migrate --seed &
 echo "Migration and seeder finished successfully"
+php artisan storage:link &
+echo "Storage linked"
 echo "Server Ready"
 php artisan serve
