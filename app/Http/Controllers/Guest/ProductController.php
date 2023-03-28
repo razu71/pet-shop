@@ -7,8 +7,7 @@ use App\Services\Admin\Product\ProductInterface;
 use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
-class ProductController extends Controller
-{
+class ProductController extends Controller {
     public function __construct(private ProductInterface $product) {
     }
 

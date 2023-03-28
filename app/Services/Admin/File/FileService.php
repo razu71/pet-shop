@@ -20,7 +20,7 @@ class FileService implements FileInterface {
             $this->deleteImage($old_file);
         }
         $client_file_name = array_filter(explode('.', $file->getClientOriginalName()));
-        $file_name = $client_file_name[0] .'-'. time() . '.' . $file->extension();
+        $file_name = $client_file_name[0] . '-' . time() . '.' . $file->extension();
         $file->storeAs($path, $file_name);
         return $file_name;
     }
@@ -36,7 +36,7 @@ class FileService implements FileInterface {
         return [
             'uuid' => uuid(),
             'name' => $file_name,
-            'path' => asset('storage/'.$file_name),
+            'path' => asset('storage/' . $file_name),
             'size' => $file->getSize(),
             'type' => $file->getClientMimeType(),
         ];
@@ -81,9 +81,9 @@ class FileService implements FileInterface {
      */
     public function getSingleFile($uuid) {
         $file = File::where('uuid', $uuid)->first();
-        if (!$file){
-            return errorResponse(__('not_found',['key' => 'File']));
+        if (!$file) {
+            return errorResponse(__('not_found', ['key' => 'File']));
         }
-        return successResponse(__('found',['key'=>'File']), $file);
+        return successResponse(__('found', ['key' => 'File']), $file);
     }
 }

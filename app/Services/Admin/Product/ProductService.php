@@ -3,6 +3,8 @@
 namespace App\Services\Admin\Product;
 
 use App\Http\Requests\Admin\StoreProductRequest;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
 use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -52,13 +54,13 @@ class ProductService implements ProductInterface {
     public function updateProduct(StoreProductRequest $request, $uuid) {
         try {
             $product = Product::where('uuid', $uuid)->first();
-            if (!$product){
-                return errorResponse(__('not_found',['key' => 'Product']));
+            if (!$product) {
+                return errorResponse(__('not_found', ['key' => 'Product']));
             }
             $data = $this->makeData($request);
             $product->update($data);
             return successResponse(__('updated', ['key' => 'Product']), $product->refresh());
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             info(json_encode($exception->getMessage()));
             return errorResponse();
         }
@@ -73,12 +75,12 @@ class ProductService implements ProductInterface {
     public function deleteProduct($uuid) {
         try {
             $product = Product::where('uuid', $uuid)->first();
-            if (!$product){
-                return errorResponse(__('not_found',['key'=>'Product']));
+            if (!$product) {
+                return errorResponse(__('not_found', ['key' => 'Product']));
             }
             $product->delete();
-            return successResponse(__('deleted',['key' => 'Product']));
-        }catch (\Exception $exception){
+            return successResponse(__('deleted', ['key' => 'Product']));
+        } catch (\Exception $exception) {
             info(json_encode($exception->getMessage()));
             return errorResponse();
         }
@@ -95,8 +97,7 @@ class ProductService implements ProductInterface {
         if (!$product) {
             return errorResponse(__('not_found', ['key' => 'Product']));
         }
-        $product->brand = Brand::where('uuid', $product->metadata['brand_uuid'])->first();
-        return successResponse(__('found', ['key' => 'Product']), $product);
+        return successResponse(__('found', ['key' => 'Product']), new ProductResource($product));
     }
 
     /**
@@ -122,10 +123,6 @@ class ProductService implements ProductInterface {
             $products = $products->get();
         }
 
-        foreach ($products as $product) {
-            $product->brand = Brand::where('uuid', $product->metadata['brand_uuid'])->first();
-        }
-
-        return successResponse(__('found', ['key' => 'Product']), $products);
+        return successResponse(__('found', ['key' => 'Product']), new ProductCollection($products));
     }
 }

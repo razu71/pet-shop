@@ -27,6 +27,6 @@ class CategoryController extends Controller {
     public function __invoke(Request $request) {
         $limit = $request->limit ?: 5;
         $category = Category::paginate($limit);
-        return successResponse(__('found',['key' => 'Category']), $category);
+        return successResponse(__('found', ['key' => 'Category']), $category);
     }
 }

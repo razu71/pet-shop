@@ -11,7 +11,7 @@ trait ApiRequestValidationTrait {
      * @throws ValidationException
      */
     protected function failedValidation(Validator $validator) {
-        if ($this->header('accept') === "application/json") {
+        if ($this->header('accept') === 'application/json') {
             $errors = [];
             if ($validator->fails()) {
                 $e = $validator->errors()->all();
@@ -32,7 +32,7 @@ trait ApiRequestValidationTrait {
         $json = [
             'code'    => 400,
             'success' => FALSE,
-            'message' => __("Header accept must be application/json"),
+            'message' => __('Header accept must be application/json'),
             'data'    => []
         ];
         $response = new JsonResponse($json, 400);

@@ -60,13 +60,14 @@ class JwtMiddleware {
                 return errorResponse(__('Unauthenticated'),[], 401);
             }
 
+            $host = request()->getHost();
             //validate token
             $public_key = InMemory::file(storage_path() . '/jwt-public-key.pem');
             if ($validator->validate($token,
                 new SignedWith(new Sha256(), $public_key),
                 new RelatedTo('user_uuid'),
-                new IssuedBy($_SERVER['SERVER_NAME']),
-                new permittedFor($_SERVER['SERVER_NAME']),
+                new IssuedBy($host),
+                new permittedFor($host),
                 new IdentifiedBy($jwt->unique_id)
             )) {
                 return $next($request);
@@ -74,7 +75,7 @@ class JwtMiddleware {
 
             return errorResponse(__('Unauthenticated'),[], 401);
         } catch (\Exception $e) {
-            info(json_encode($e->violations()));
+            info(json_encode($e->getMessage()));
             return errorResponse(__('Unauthenticated'),[], 401);
         }
     }

@@ -62,7 +62,7 @@ class AuthService implements AuthInterface {
             return errorReturn(__('not_verified', ['key' => 'User email']));
         }
         if ($request->email === $user->email && Hash::check($request->password, $user->password)) {
-            return successReturn(__('found', ['User credentials']), $user);
+            return successReturn(__('found', ['key' => 'User credentials']), $user);
         }
         return errorReturn(__('not_matched', ['key' => 'User email or password']));
     }
@@ -73,15 +73,15 @@ class AuthService implements AuthInterface {
      */
     public function createAndStoreKey() {
         $keyConfig = [
-            "digest_alg"       => "sha256",
-            "private_key_bits" => 2048,
-            "private_key_type" => OPENSSL_KEYTYPE_RSA,
+            'digest_alg'       => "sha256",
+            'private_key_bits' => 2048,
+            'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ];
 
         $privateKey = openssl_pkey_new($keyConfig);
         openssl_pkey_export($privateKey, $pemPrivateKey);
         $keyDetails = openssl_pkey_get_details($privateKey);
-        $pemPublicKey = $keyDetails["key"];
+        $pemPublicKey = $keyDetails['key'];
         file_put_contents(storage_path() . '/jwt-private-key.pem', $pemPrivateKey);
         file_put_contents(storage_path() . '/jwt-public-key.pem', $pemPublicKey);
     }
@@ -101,7 +101,7 @@ class AuthService implements AuthInterface {
         );
 
         $unique_id = uniqid('bh', FALSE);
-        $issuer = $_SERVER['SERVER_NAME'];
+        $issuer = request()->getHost();
         $title = time();
         $now = new DateTimeImmutable();
         $expired_at = $now->modify('+24 hour');
@@ -154,8 +154,8 @@ class AuthService implements AuthInterface {
         $_token = request()->bearerToken();
         $parser = new Parser(new JoseEncoder());
         $token = $parser->parse($_token);
-        if ($token->toString() == '') {
-            return errorReturn(__('Unauthenticated'), [], 401);
+        if (empty($token->toString())) {
+            return errorReturn(__('Unauthenticated'), []);
         }
         return successReturn('', ['token' => $token]);
     }
@@ -170,11 +170,11 @@ class AuthService implements AuthInterface {
         $token = $_token['data']['token'];
         $user_uuid = $token->claims()->get('user_uuid');
         if ($user_uuid == '') {
-            return errorReturn(__('Unauthenticated'), [], 401);
+            return errorReturn(__('Unauthenticated'), []);
         }
         $user = User::where('uuid', $user_uuid)->first();
         if (!$user) {
-            return errorReturn(__('Unauthenticated'), [], 401);
+            return errorReturn(__('Unauthenticated'), []);
         }
         return successReturn(__('found', ['key' => 'User']), $user);
     }
@@ -188,7 +188,7 @@ class AuthService implements AuthInterface {
     public static function tokenVerify($user_id) {
         $jwt = JwtToken::where('user_id', $user_id)->first();
         if (!$jwt) {
-            return errorReturn(__('Unauthenticated'), [], 401);
+            return errorReturn(__('Unauthenticated'), []);
         }
         return successReturn(__('found', ['key' => 'Token']), $jwt);
     }

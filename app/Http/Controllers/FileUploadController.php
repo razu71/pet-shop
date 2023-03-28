@@ -7,8 +7,7 @@ use App\Services\Admin\File\FileInterface;
 use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
-class FileUploadController extends Controller
-{
+class FileUploadController extends Controller {
     public function __construct(private FileInterface $file) {
     }
 

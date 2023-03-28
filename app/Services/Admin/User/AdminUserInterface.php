@@ -43,6 +43,7 @@ interface AdminUserInterface {
     /**
      * @param UpdateUserProfileRequest $request
      * update user profile
+     *
      * @return mixed
      */
     public function updateUserProfile(UpdateUserProfileRequest $request);

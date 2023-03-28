@@ -48,7 +48,7 @@ class AdminUserService implements AdminUserInterface {
      */
     public function userListing(Request $request) {
         $limit = $request->limit ?: 5;
-        $user = User::where('is_admin','==',0);
+        $user = User::where('is_admin', '==', 0);
         if ($request->has('first_name') && $request->first_name != '') {
             $user = $user->where('first_name', 'like', '%' . $request->first_name . '%');
         }
@@ -121,12 +121,13 @@ class AdminUserService implements AdminUserInterface {
     /**
      * @param UpdateUserProfileRequest $request
      * update user profile
+     *
      * @return mixed
      */
     public function updateUserProfile($request) {
         try {
             $user = AuthService::authUser();
-            if ($user['success'] == FALSE){
+            if ($user['success'] == FALSE) {
                 return errorResponse($user['message']);
             }
             $data = [
@@ -137,8 +138,8 @@ class AdminUserService implements AdminUserInterface {
                 'avatar'       => $request->avatar,
             ];
             $user['data']->update($data);
-            return successResponse(__('updated',['key'=>'Profile']), $user['data']->refresh());
-        }catch (\Exception $exception){
+            return successResponse(__('updated', ['key' => 'Profile']), $user['data']->refresh());
+        } catch (\Exception $exception) {
             info(json_encode($exception->getMessage()));
             return errorResponse();
         }

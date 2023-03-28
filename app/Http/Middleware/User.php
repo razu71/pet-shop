@@ -6,7 +6,6 @@ use App\Services\Auth\AuthService;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use const _PHPStan_e0e4f009c\__;
 
 class User
 {

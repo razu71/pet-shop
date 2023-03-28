@@ -8,8 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
-class BrandController extends Controller
-{
+class BrandController extends Controller {
     /**
      * @OA\Get(
      *     path="/brands",
@@ -29,6 +28,6 @@ class BrandController extends Controller
     public function __invoke(Request $request) {
         $limit = $request->limit ?: 5;
         $brands = Brand::paginate($limit);
-        return successResponse(__('found',['key' => 'Brand']), $brands);
+        return successResponse(__('found', ['key' => 'Brand']), $brands);
     }
 }

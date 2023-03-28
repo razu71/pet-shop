@@ -9,8 +9,7 @@ use App\Services\Admin\User\AdminUserInterface;
 use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
-class UserController extends Controller
-{
+class UserController extends Controller {
     public function __construct(private AdminUserInterface $admin) {
     }
 
@@ -85,6 +84,7 @@ class UserController extends Controller
     public function userListing(Request $request) {
         return $this->admin->userListing($request);
     }
+
     /**
      * @OA\Put(
      *     path="/admin/user-edit/{uuid}",
